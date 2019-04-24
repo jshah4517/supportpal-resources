@@ -38,6 +38,11 @@
         </style>
     {% endif %}
 
+    <link href="{{ asset_rev('resources/assets/frontend/css/main.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset_rev('resources/templates/frontend/demo/main-overrides.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset_rev('resources/assets/frontend/css/mobile.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset_rev('resources/assets/libs/font-awesome/css/font-awesome.min.css') }}" rel="stylesheet" type="text/css" />
+
     {% set route = Route.currentRouteName() %}
 </head>
 
@@ -53,15 +58,6 @@
             <i class="fa fa-bars"></i>
             <div class="clear"></div>
         </div>
-
-        {% if isModuleEnabled('Selfservice') and not selfserviceTypes.isEmpty() %}
-            <div class="searchbox">
-                <form name="search" action="{{ route('core.frontend.search') }}" method="post">
-                    <input type="hidden" name="_token" value="{{ csrf_token() }}" />
-                    <input type="text" name="query" placeholder="{{ Lang.get('core.search_placeholder') }}" />
-                </form>
-            </div>
-        {% endif %}
 
         {% set frontend_logo_url = route('core.frontend.home') %}
         {% if Config.get('settings.frontend_logo_url') is not empty %}
@@ -84,6 +80,11 @@
 <div class="desk_wrapper">
 
     {{ View.fireHook('frontend.wrapper_start') }}
+
+    <div class="new-user-notice">
+        <i class="fa fa-info-circle" aria-hidden="true"></i>&nbsp;&nbsp;
+        Are you a new user? Please read our <a href="{{ route('selfservice.index', { 'type': 'documentation' }) }}">documentation</a> to see if it covers your issue before opening a ticket.
+    </div>
 
     <div id="desk_content" class="left">
 
